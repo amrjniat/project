@@ -789,9 +789,77 @@ formAlertSuccess: '✅ Request received successfully! We will contact you soon.'
         mutationObserver.observe(document.body, { childList: true, subtree: true });
     };
 
+
+    // ============================================================
+    // التحقق من نموذج الاستشارة — Consultation Form Validation
+    // ============================================================
+    const consultationForm = document.getElementById('consultationForm');
+
+    if (consultationForm) {
+        const nameInput    = document.getElementById('userName');
+        const emailInput   = document.getElementById('userEmail');
+        const messageInput = document.getElementById('userMessage');
+        const formAlert    = document.getElementById('formAlert');
+
+        const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        consultationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let isFormValid = true;
+            const currentLang = html.getAttribute('lang') || 'ar';
+
+            ['nameError', 'emailError', 'messageError'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            [nameInput, emailInput, messageInput].forEach(el => el.classList.remove('is-invalid'));
+
+            if (nameInput.value.trim() === '') {
+                nameInput.classList.add('is-invalid');
+                document.getElementById('nameError').style.display = 'block';
+                isFormValid = false;
+            }
+
+            if (emailInput.value.trim() === '' || !isValidEmail(emailInput.value.trim())) {
+                emailInput.classList.add('is-invalid');
+                document.getElementById('emailError').style.display = 'block';
+                isFormValid = false;
+            }
+
+            if (messageInput.value.trim() === '') {
+                messageInput.classList.add('is-invalid');
+                document.getElementById('messageError').style.display = 'block';
+                isFormValid = false;
+            }
+
+            if (!isFormValid) {
+                formAlert.className = 'alert alert-danger mt-4 d-block fw-bold';
+                formAlert.innerHTML = currentLang === 'ar'
+                    ? '⚠️ يرجى تصحيح الأخطاء في الحقول المحددة باللون الأحمر قبل الإرسال.'
+                    : '⚠️ Please correct the highlighted errors before submitting.';
+            } else {
+                formAlert.className = 'alert alert-success mt-4 d-block fw-bold';
+                formAlert.innerHTML = currentLang === 'ar'
+                    ? '✅ تم استلام طلبك بنجاح! سيتم التواصل معك قريباً.'
+                    : '✅ Request received successfully! We will contact you soon.';
+                consultationForm.reset();
+                setTimeout(() => { formAlert.className = 'alert d-none fw-bold'; }, 5000);
+            }
+        });
+
+        [nameInput, emailInput, messageInput].forEach(input => {
+            input.addEventListener('input', function() {
+                this.classList.remove('is-invalid');
+                const errorMsg = this.nextElementSibling;
+                if (errorMsg && errorMsg.classList.contains('invalid-feedback')) {
+                    errorMsg.style.display = 'none';
+                }
+            });
+        });
+    }
+
     initScrollReveal();
 });
-
 
 
 
@@ -869,82 +937,5 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (btnEqual) {
         btnEqual.addEventListener('click', calculateResult);
-    }
-});
-
-
-// ============================================================
-// نظام التحقق من نموذج الاستشارة الموحد (Form Validation)
-// ============================================================
-document.addEventListener('DOMContentLoaded', () => {
-    const consultationForm = document.getElementById('consultationForm');
-
-    if (consultationForm) {
-        const nameInput    = document.getElementById('userName');
-        const emailInput   = document.getElementById('userEmail');
-        const messageInput = document.getElementById('userMessage');
-        const formAlert    = document.getElementById('formAlert');
-
-        const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-        consultationForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            let isFormValid = true;
-            const currentLang = document.documentElement.getAttribute('lang') || 'ar';
-
-            // تصفير رسائل الخطأ القديمة
-            ['nameError', 'emailError', 'messageError'].forEach(id => {
-                document.getElementById(id).style.display = 'none';
-            });
-            [nameInput, emailInput, messageInput].forEach(el => el.classList.remove('is-invalid'));
-
-            if (nameInput.value.trim() === '') {
-                nameInput.classList.add('is-invalid');
-                document.getElementById('nameError').style.display = 'block';
-                isFormValid = false;
-            }
-
-            if (!isValidEmail(emailInput.value.trim())) {
-                emailInput.classList.add('is-invalid');
-                document.getElementById('emailError').style.display = 'block';
-                isFormValid = false;
-            }
-
-            if (messageInput.value.trim() === '') {
-                messageInput.classList.add('is-invalid');
-                document.getElementById('messageError').style.display = 'block';
-                isFormValid = false;
-            }
-
-            if (!isFormValid) {
-                formAlert.className = 'alert alert-danger mt-4 d-block fw-bold';
-                formAlert.innerHTML = currentLang === 'ar'
-                    ? '⚠️ يرجى تصحيح الأخطاء في الحقول المحددة باللون الأحمر قبل الإرسال.'
-                    : '⚠️ Please correct the highlighted errors before submitting.';
-            } else {
-                formAlert.className = 'alert alert-success mt-4 d-block fw-bold';
-                formAlert.innerHTML = currentLang === 'ar'
-                    ? '✅ تم استلام طلبك بنجاح! سيتم التواصل معك قريباً.'
-                    : '✅ Request received successfully! We will contact you soon.';
-
-                consultationForm.reset();
-
-                setTimeout(() => {
-                    formAlert.className = 'alert d-none fw-bold';
-                }, 5000);
-            }
-        });
-
-        // إخفاء رسالة الخطأ فور بدء المستخدم بالكتابة
-        [nameInput, emailInput, messageInput].forEach(input => {
-            input.addEventListener('input', function () {
-                this.classList.remove('is-invalid');
-                const errorMsg = this.nextElementSibling;
-                if (errorMsg && errorMsg.classList.contains('invalid-feedback')) {
-                    errorMsg.style.display = 'none';
-                }
-            });
-        });
     }
 });
