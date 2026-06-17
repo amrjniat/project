@@ -1,3 +1,50 @@
+// ============================================================
+// دالة توليد صورة Placeholder محلية بالـ Canvas — بدون أي طلب شبكة
+// ============================================================
+function generateLocalPlaceholder(productId) {
+    const width = 600, height = 400;
+    try {
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+
+        const colors = [
+            ['#0ea5e9','#0284c7'], ['#6366f1','#4f46e5'],
+            ['#10b981','#059669'], ['#f59e0b','#d97706'],
+            ['#ec4899','#db2777'], ['#8b5cf6','#7c3aed'],
+        ];
+        const [c1, c2] = colors[productId % colors.length];
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, c1);
+        grad.addColorStop(1, c2);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, width, height);
+
+        // دائرة شفافة خلف الرقم
+        ctx.fillStyle = 'rgba(255,255,255,0.18)';
+        ctx.beginPath();
+        ctx.arc(width / 2, height / 2 - 10, 60, 0, Math.PI * 2);
+        ctx.fill();
+
+        // رقم المنتج
+        ctx.fillStyle = 'rgba(255,255,255,0.95)';
+        ctx.font = 'bold 28px Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('#' + productId, width / 2, height / 2 - 10);
+
+        // كلمة Product
+        ctx.font = '16px Arial, sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.75)';
+        ctx.fillText('Product', width / 2, height / 2 + 30);
+
+        return canvas.toDataURL('image/png');
+    } catch (e) {
+        return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="600" height="400" fill="%230ea5e9"/><text x="300" y="210" font-size="24" fill="white" text-anchor="middle">%23' + productId + '</text></svg>';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('darkModeToggle');
     const langToggle = document.getElementById('langToggle');
@@ -606,7 +653,7 @@ formAlertSuccess: '✅ Request received successfully! We will contact you soon.'
                              class="card-img-top" 
                              alt="${currentText.title}" 
                              loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/600x400/0ea5e9/ffffff?text=Product+${product.id}'; this.style.objectFit='cover';">
+                             onerror="this.onerror=null; this.src=generateLocalPlaceholder(${product.id}); this.style.objectFit='cover';">
                     </div>
                     <div class="card-body d-flex flex-column justify-content-between p-4">
                         <div>
