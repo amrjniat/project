@@ -894,9 +894,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             
             let isFormValid = true;
-                  const html = document.documentElement;
-            const currentLang = html.getAttribute('lang') || 'ar'; // يعتمد على متغير html الموجود مسبقاً في ملفك
-
+const currentLang = (document.documentElement && document.documentElement.getAttribute('lang')) || 'ar';
             // إعادة ضبط الحقول
             document.getElementById('nameError').style.display = 'none';
             document.getElementById('emailError').style.display = 'none';
