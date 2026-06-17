@@ -940,20 +940,8 @@ const currentLang = (document.documentElement && document.documentElement.getAtt
             }
         });
 
-        // إزالة رسائل الخطأ عند بدء الكتابة
-        [nameInput, emailInput, messageInput].forEach(input => {
-            input.addEventListener('input', function() {
-                this.classList.remove('is-invalid');
-                const errorMsg = this.nextElementSibling;
-                if(errorMsg && errorMsg.classList.contains('invalid-feedback')) {
-                    errorMsg.style.display = 'none';
-                }
-            });
-        });
-    }
-
-// ============================================================
-// نظام التحقق من نموذج الاستشارة (Form Validation)
+        // ============================================================
+// نظام التحقق من نموذج الاستشارة الموحد (Form Validation)
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
     const consultationForm = document.getElementById('consultationForm');
@@ -971,13 +959,13 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         consultationForm.addEventListener('submit', function(e) {
-            // 1. منع إرسال النموذج فوراً لإجراء الفحوصات
+            // منع إرسال النموذج فوراً لإجراء الفحوصات
             e.preventDefault();
             
             let isFormValid = true;
             const currentLang = document.documentElement.getAttribute('lang') || 'ar';
 
-            // 2. تصفير رسائل الخطأ القديمة قبل كل عملية إرسال
+            // تصفير رسائل الخطأ القديمة قبل كل عملية إرسال
             document.getElementById('nameError').style.display = 'none';
             document.getElementById('emailError').style.display = 'none';
             document.getElementById('messageError').style.display = 'none';
@@ -985,48 +973,46 @@ document.addEventListener('DOMContentLoaded', () => {
             emailInput.classList.remove('is-invalid');
             messageInput.classList.remove('is-invalid');
 
-            // 3. التحقق من حقل الاسم (هل هو فارغ؟)
+            // التحقق من حقل الاسم
             if (nameInput.value.trim() === '') {
                 nameInput.classList.add('is-invalid');
                 document.getElementById('nameError').style.display = 'block';
                 isFormValid = false;
             }
 
-            // 4. التحقق من حقل الإيميل (هل هو فارغ؟ أو هل تمت كتابته بشكل خاطئ؟)
+            // التحقق من حقل الإيميل
             if (emailInput.value.trim() === '' || !isValidEmail(emailInput.value.trim())) {
                 emailInput.classList.add('is-invalid');
                 document.getElementById('emailError').style.display = 'block';
                 isFormValid = false;
             }
 
-            // 5. التحقق من حقل الرسالة (هل هو فارغ؟)
+            // التحقق من حقل الرسالة
             if (messageInput.value.trim() === '') {
                 messageInput.classList.add('is-invalid');
                 document.getElementById('messageError').style.display = 'block';
                 isFormValid = false;
             }
 
-            // 6. النتيجة النهائية للتحقق
+            // النتيجة النهائية للتحقق والتنفيذ
             if (!isFormValid) {
-                // في حال وجود أخطاء: إظهار رسالة عامة باللون الأحمر
                 formAlert.className = 'alert alert-danger mt-4 d-block';
                 formAlert.innerHTML = currentLang === 'ar' ? '⚠️ يرجى تصحيح الأخطاء في الحقول المحددة باللون الأحمر قبل الإرسال.' : '⚠️ Please correct the highlighted errors before submitting.';
             } else {
-                // في حال كانت كل الحقول صحيحة: إظهار رسالة نجاح خضراء
                 formAlert.className = 'alert alert-success mt-4 d-block';
                 formAlert.innerHTML = currentLang === 'ar' ? '✅ تم استلام طلبك بنجاح! سيتم التواصل معك قريباً.' : '✅ Request received successfully! We will contact you soon.';
                 
-                // تفريغ الحقول ليتمكن من إرسال رسالة أخرى إذا أراد
+                // تفريغ الحقول بأمان بعد انتهاء كافة الفحوصات تماماً
                 consultationForm.reset();
                 
                 // إخفاء رسالة النجاح تلقائياً بعد 5 ثوانٍ
                 setTimeout(() => {
-                    formAlert.classList.replace('d-block', 'd-none');
+                    formAlert.className = 'alert d-none fw-bold';
                 }, 5000);
             }
         });
 
-        // 7. ميزة التفاعل اللحظي: إخفاء رسالة الخطأ فور بدء المستخدم بالكتابة
+        // ميزة التفاعل اللحظي: إخفاء رسالة الخطأ فور بدء المستخدم بالكتابة
         [nameInput, emailInput, messageInput].forEach(input => {
             input.addEventListener('input', function() {
                 this.classList.remove('is-invalid');
