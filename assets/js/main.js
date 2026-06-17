@@ -894,6 +894,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             
             let isFormValid = true;
+                  const html = document.documentElement;
             const currentLang = html.getAttribute('lang') || 'ar'; // يعتمد على متغير html الموجود مسبقاً في ملفك
 
             // إعادة ضبط الحقول
