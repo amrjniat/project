@@ -474,7 +474,7 @@ formAlertSuccess: '✅ Request received successfully! We will contact you soon.'
 
     if (langToggle) {
         langToggle.addEventListener('click', () => {
-            const currentLang = html.getAttribute('lang') || 'ar';
+   const currentLang = document.documentElement.getAttribute('lang') || 'ar';
             const nextLang = currentLang === 'ar' ? 'en' : 'ar';
             applyLanguage(nextLang);
         });
