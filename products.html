@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AmrDigitalSpace - متجر المنتجات التقنية والرقمية المتنوعة مع سلة مشتريات تفاعلية ذكية">
+    <title data-i18n="navProducts">معرض المنتجات | AmrDigitalSpace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link id="bootstrapCss" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/offline-fallback.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-custom navbar-dark sticky-top" role="navigation" aria-label="التنقل الرئيسي" data-i18n-aria-label="mainNavAria">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-code">&lt;/&gt;</span> AmrDigitalSpace
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="تبديل التنقل" data-i18n-aria-label="toggleNavAria">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html" data-i18n="navHome">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="blog.html" data-i18n="navBlog">المدونة</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="products.html" data-i18n="navProducts">معرض المنتجات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calculator.html" data-i18n="navCalc">الحاسبة</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="consultation.html" data-i18n="navConsult">الاستشارة</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+                    <button class="btn btn-outline-light position-relative px-3" id="cartToggleBtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" style="border-radius: 999px; height: 40px; font-size: 0.9rem; font-weight: 700;">
+                        🛒 <span id="cartCountBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                    </button>
+                    <button class="btn btn-lang-toggle" id="langToggle" type="button" aria-label="تبديل اللغة" data-i18n-aria-label="toggleLangAria">EN</button>
+                    <button class="btn btn-theme-toggle" id="darkModeToggle" type="button" aria-label="تبديل الوضع الداكن" data-i18n-aria-label="toggleThemeAria">
+                        <span class="theme-icon" aria-hidden="true">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-5 text-center border-bottom header-blog-section blog-hero">
+        <div class="container">
+            <h1 class="fw-bold display-5 mb-2" data-i18n="navProducts" data-reveal="down" data-reveal-delay="1">معرض المنتجات الرقمية</h1>
+            <p class="text-muted lead" data-i18n="productsHeaderDesc" data-reveal="up" data-reveal-delay="2">تصفح واقتنِ أكثر من 100 منتج متنوع؛ يشمل كورسات برمجية، أدوات تقنية، معدات مكتبية، وكتب تطوير الذات.</p>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row g-4 projects-grid" id="storeProductsGrid" aria-live="polite"></div>
+    </main>
+
+    <!-- سلة التسوق -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title fw-bold" id="cartOffcanvasLabel">🛍️ سلة التسوق الخاصة بك</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="إغلاق"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <div id="cartItemsListContainer" class="flex-grow-1 overflow-auto mb-3">
+                <p class="text-center text-muted py-5">السلة فارغة تماماً. أضف بعض المنتجات المتميزة لبدء التسوق!</p>
+            </div>
+            <div class="border-top pt-3">
+                <div class="d-flex justify-content-between fw-bold mb-3 fs-5">
+                    <span id="cartTotalLabel" data-i18n="cartTotalLabel">الإجمالي التقديري:</span>
+                    <span id="cartTotalSum" class="text-success">0.00 $</span>
+                </div>
+                <button id="cartCheckoutBtn" class="btn btn-primary-custom w-100 py-2 fw-bold" disabled>✓ تأكيد طلب المشتريات</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="custom-footer py-4 mt-auto border-top" role="contentinfo">
+        <div class="container text-center">
+            <p class="mb-0 footer-text">
+                &copy; <span id="currentYear"></span> جميع الحقوق محفوظة | تم التطوير بواسطة <span class="developer-name">عمرو جنيات</span>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

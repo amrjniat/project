@@ -1,0 +1,1565 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --page-bg: #f8fafc;
+    --page-surface: #ffffff;
+    --page-surface-strong: #eef6ff;
+    --page-text: #0f172a;
+    --page-muted: #475569;
+    --page-border: rgba(15, 23, 42, 0.08);
+    --brand: #38bdf8;
+    --brand-dark: #0ea5e9;
+    --brand-deep: #0f172a;
+    --shadow-soft: 0 20px 50px rgba(15, 23, 42, 0.08);
+    --shadow-card: 0 16px 35px rgba(15, 23, 42, 0.08);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 26%),
+        radial-gradient(circle at bottom left, rgba(15, 23, 42, 0.05), transparent 24%),
+        var(--page-bg);
+    color: var(--page-text);
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html[lang="en"] body {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+body[data-theme="dark"] {
+    --page-bg: #0b1120;
+    --page-surface: #111827;
+    --page-surface-strong: #162033;
+    --page-text: #e5eefb;
+    --page-muted: #94a3b8;
+    --page-border: rgba(148, 163, 184, 0.16);
+    --shadow-soft: 0 20px 50px rgba(2, 6, 23, 0.4);
+    --shadow-card: 0 16px 35px rgba(2, 6, 23, 0.3);
+    background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 26%),
+        radial-gradient(circle at bottom left, rgba(14, 165, 233, 0.08), transparent 24%),
+        var(--page-bg);
+}
+
+.navbar-custom {
+    background-color: #0f172a;
+    padding: 14px 0;
+    box-shadow: 0 2px 18px rgba(15, 23, 42, 0.22);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-custom .navbar-brand {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: 0.2px;
+}
+
+.navbar-custom .brand-code {
+    color: #38bdf8;
+    margin-left: 0.3rem;
+}
+
+.navbar-custom .nav-link {
+    color: #cbd5e1;
+    font-size: 1.05rem;
+    margin: 0 6px;
+    transition: color 0.25s ease, background-color 0.25s ease;
+    border-radius: 999px;
+    padding: 0.45rem 0.85rem;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link.active {
+    color: #38bdf8;
+    background-color: rgba(56, 189, 248, 0.08);
+}
+
+.btn-theme-toggle {
+    background: transparent;
+    border: 1px solid rgba(203, 213, 225, 0.18);
+    color: #ffffff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-lang-toggle {
+    min-width: 58px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid rgba(203, 213, 225, 0.24);
+    background: rgba(148, 163, 184, 0.08);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    transition: all 0.2s ease;
+}
+
+/* btn-lang-toggle و btn-theme-toggle hover — مُعرَّفان في قسم نظام الأزرار الموحّد أعلاه */
+
+.navbar-custom .navbar-toggler {
+    border-color: rgba(203, 213, 225, 0.2);
+}
+
+.navbar-custom .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+.section-pad {
+    padding: 4rem 0;
+}
+
+.section-soft {
+    background: color-mix(in srgb, var(--page-surface) 92%, transparent);
+}
+
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before,
+.hero-section::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.hero-section::before {
+    width: 230px;
+    height: 230px;
+    top: 1.5rem;
+    left: -70px;
+    background: rgba(56, 189, 248, 0.08);
+    filter: blur(10px);
+}
+
+.hero-section::after {
+    width: 280px;
+    height: 280px;
+    bottom: -110px;
+    right: -90px;
+    background: rgba(14, 165, 233, 0.08);
+    filter: blur(14px);
+}
+
+.hero-badge,
+.section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--brand-dark);
+    padding: 0.5rem 0.95rem;
+    font-weight: 700;
+    font-size: 0.92rem;
+}
+
+body[data-theme="dark"] .hero-badge,
+body[data-theme="dark"] .section-label {
+    color: #d9f3ff;
+    background: rgba(56, 189, 248, 0.14);
+}
+
+.hero-title {
+    font-size: clamp(2.7rem, 5vw, 4.7rem);
+    line-height: 1.05;
+    font-weight: 800;
+    margin: 0;
+}
+
+.hero-text {
+    font-size: clamp(1.3rem, 1.5vw, 1.8rem);
+    line-height: 1.95;
+    color: var(--page-text);
+}
+
+#readMoreContent p {
+    color: var(--page-muted);
+}
+
+.hero-text,
+.section-heading p,
+.info-card p,
+.feature-pill span,
+.footer-text {
+    color: var(--page-muted);
+    line-height: 1.9;
+}
+
+body[data-theme="dark"] .hero-text,
+body[data-theme="dark"] #readMoreContent p {
+    color: var(--page-text) !important;
+}
+
+/* ==========================================================================
+   نظام الأزرار الموحّد — Fill Sweep Animation (بدون pseudo-elements)
+   الفكرة: background-image مزدوج، الأول للون الأساسي والثاني للون hover،
+   نحرّك background-size من 0% إلى 100% — النص لا يتأثر أبداً
+   ========================================================================== */
+
+/* --- زر Primary (الرئيسي المملوء) --- */
+.btn-primary-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    color: #ffffff !important;
+    background-image: linear-gradient(135deg, #0284c7 0%, #0369a1 100%),
+                      linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    background-size: 0% 100%, 100% 100%;
+    background-position: left center, left center;
+    background-repeat: no-repeat;
+    box-shadow: 0 4px 14px rgba(14, 165, 233, 0.28);
+    transition:
+        background-size 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+        transform       0.22s ease,
+        box-shadow      0.28s ease;
+}
+
+.btn-primary-custom:hover,
+.btn-primary-custom:focus {
+    color: #ffffff !important;
+    background-size: 100% 100%, 100% 100%;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(14, 165, 233, 0.45);
+}
+
+/* --- زر Outline (المخطط) --- */
+.btn-outline-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1.5px solid var(--brand-dark);
+    color: var(--brand-dark) !important;
+    background-image: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-dark) 100%);
+    background-size: 0% 100%;
+    background-position: left center;
+    background-repeat: no-repeat;
+    transition:
+        background-size 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+        color           0.32s ease,
+        transform       0.22s ease,
+        box-shadow      0.28s ease;
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom:focus {
+    background-size: 100% 100%;
+    color: #ffffff !important;
+    border-color: var(--brand-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(14, 165, 233, 0.32);
+}
+
+/* --- زر Newsletter --- */
+#newsletterBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    color: #ffffff !important;
+    background-image: linear-gradient(135deg, #0284c7 0%, #0369a1 100%),
+                      linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    background-size: 0% 100%, 100% 100%;
+    background-position: left center, left center;
+    background-repeat: no-repeat;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+    transition:
+        background-size 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+        transform       0.22s ease,
+        box-shadow      0.28s ease;
+}
+
+#newsletterBtn:hover,
+#newsletterBtn:focus {
+    color: #ffffff !important;
+    background-size: 100% 100%, 100% 100%;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(14, 165, 233, 0.4);
+}
+
+/* --- زر اللغة في النافبار --- */
+.btn-lang-toggle {
+    min-width: 58px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(203, 213, 225, 0.35);
+    background: rgba(148, 163, 184, 0.08);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease,
+                color 0.25s ease, transform 0.22s ease, box-shadow 0.28s ease;
+}
+
+.btn-lang-toggle:hover {
+    background: rgba(56, 189, 248, 0.18);
+    border-color: #38bdf8;
+    color: #38bdf8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(56, 189, 248, 0.28);
+}
+
+/* --- زر الثيم في النافبار --- */
+.btn-theme-toggle {
+    background: transparent;
+    border: 1.5px solid rgba(203, 213, 225, 0.22);
+    color: #ffffff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease,
+                color 0.25s ease, transform 0.25s ease, box-shadow 0.28s ease;
+}
+
+.btn-theme-toggle:hover {
+    background-color: #1e293b;
+    border-color: #38bdf8;
+    color: #38bdf8;
+    transform: translateY(-2px) rotate(12deg);
+    box-shadow: 0 6px 18px rgba(56, 189, 248, 0.22);
+}
+
+/* ==========================================================================
+   الوضع الداكن — Dark Mode overrides للأزرار
+   ========================================================================== */
+
+body[data-theme="dark"] .btn-primary-custom {
+    box-shadow: 0 4px 18px rgba(56, 189, 248, 0.35);
+}
+body[data-theme="dark"] .btn-primary-custom:hover {
+    box-shadow: 0 12px 32px rgba(56, 189, 248, 0.5);
+}
+
+body[data-theme="dark"] .btn-outline-custom {
+    border-color: #38bdf8;
+    color: #38bdf8 !important;
+    background-image: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+}
+body[data-theme="dark"] .btn-outline-custom:hover {
+    color: #0f172a !important;
+    border-color: #38bdf8;
+    box-shadow: 0 8px 26px rgba(56, 189, 248, 0.4);
+}
+
+body[data-theme="dark"] #newsletterBtn {
+    box-shadow: 0 4px 16px rgba(56, 189, 248, 0.3);
+}
+body[data-theme="dark"] #newsletterBtn:hover {
+    box-shadow: 0 10px 28px rgba(56, 189, 248, 0.45);
+}
+
+/* blog read-more */
+.btn-link-custom {
+    color: var(--brand-dark) !important;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.btn-link-custom:hover {
+    color: var(--brand) !important;
+}
+body[data-theme="dark"] .btn-link-custom {
+    color: #38bdf8 !important;
+}
+body[data-theme="dark"] .btn-link-custom:hover {
+    color: #7dd3fc !important;
+}
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background: var(--page-surface);
+    border: 1px solid var(--page-border);
+    border-radius: 1.2rem;
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.stat-card strong {
+    display: block;
+    font-size: 1.6rem;
+    margin-bottom: 0.35rem;
+}
+
+.stat-card span {
+    color: var(--page-muted);
+}
+
+.hero-visual-card {
+    position: relative;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
+    border-radius: 1.6rem;
+    padding: 0.6rem;
+    overflow: hidden;
+    box-shadow: 0 18px 50px rgba(2,6,23,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+    border: 1px solid rgba(15,23,42,0.06);
+    backdrop-filter: blur(6px) saturate(110%);
+}
+
+body[data-theme="dark"] .hero-visual-card {
+    background: linear-gradient(180deg, rgba(6,10,20,0.55), rgba(6,10,20,0.45));
+    border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Even lighting overlay to flatten highlights and shadows */
+.hero-visual-card::before,
+.hero-visual-card::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.hero-visual-card::before {
+    /* soft uniform light */
+    background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+    mix-blend-mode: screen;
+    filter: blur(8px);
+    opacity: 0.85;
+}
+
+.hero-visual-card::after {
+    /* subtle vignette to keep edges balanced */
+    background: radial-gradient(closest-side, rgba(0,0,0,0) 60%, rgba(0,0,0,0.06));
+    mix-blend-mode: multiply;
+    opacity: 0.6;
+}
+
+.hero-image {
+    width: 100%;
+    border-radius: 1.25rem;
+    object-fit: cover;
+    min-height: 360px;
+    object-position: center top;
+    display: block;
+    filter: contrast(1.03) saturate(1.03) brightness(1.02);
+    transition: transform 0.45s ease, filter 0.35s ease;
+}
+
+.hero-visual-card:hover .hero-image {
+    transform: scale(1.02);
+    filter: contrast(1.06) saturate(1.05) brightness(1.04);
+}
+
+.section-heading {
+    max-width: 720px;
+    margin-bottom: 2rem;
+}
+
+.section-heading h2 {
+    font-size: clamp(1.9rem, 3vw, 2.7rem);
+    font-weight: 800;
+    margin: 1rem 0 0.85rem;
+}
+
+.info-card {
+    background: var(--page-surface);
+    border: 1px solid var(--page-border);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 42px rgba(15, 23, 42, 0.12);
+    border-color: rgba(56, 189, 248, 0.28);
+}
+
+.info-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: var(--brand-dark);
+    background: rgba(56, 189, 248, 0.14);
+    margin-bottom: 1rem;
+}
+
+.info-card h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+}
+
+.card-link-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.8rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    text-decoration: none;
+}
+
+.card-link-custom:hover {
+    color: var(--brand);
+}
+
+.feature-pill {
+    background: var(--page-surface);
+    border: 1px solid var(--page-border);
+    border-radius: 1.25rem;
+    padding: 1.1rem;
+    box-shadow: var(--shadow-card);
+    height: 100%;
+}
+
+.feature-pill strong {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 1.05rem;
+}
+
+.projects-section {
+    position: relative;
+}
+
+.projects-grid {
+    margin-top: 0.75rem;
+}
+
+.project-card {
+    --project-accent-rgb: 56, 189, 248;
+    position: relative;
+    height: 100%;
+    background: var(--page-surface);
+    border: 1px solid var(--page-border);
+    border-radius: 1.6rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: transform 0.45s ease, box-shadow 0.35s ease, border-color 0.35s ease, opacity 0.45s ease;
+}
+
+.project-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(var(--project-accent-rgb), 0.45);
+    box-shadow: 0 24px 45px rgba(15, 23, 42, 0.14);
+}
+
+.project-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: linear-gradient(180deg, rgba(var(--project-accent-rgb), 0.95), rgba(var(--project-accent-rgb), 0.25));
+}
+
+.project-media {
+    position: relative;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(var(--project-accent-rgb), 0.18), rgba(15, 23, 42, 0.08));
+    isolation: isolate;
+}
+
+.project-card-featured .project-media {
+    aspect-ratio: 16 / 10;
+}
+
+.project-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--project-focus, center center);
+    display: block;
+    filter: saturate(1.05) contrast(1.04);
+    transition: transform 0.6s ease, filter 0.35s ease;
+}
+
+.project-card:hover .project-media img {
+    transform: scale(1.06);
+    filter: saturate(1.08) contrast(1.07);
+}
+
+.project-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.06), rgba(15, 23, 42, 0.34)),
+        radial-gradient(circle at top right, rgba(var(--project-accent-rgb), 0.24), transparent 36%);
+}
+
+.project-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88);
+    color: var(--brand-deep);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+    backdrop-filter: blur(10px);
+}
+
+body[data-theme="dark"] .project-badge {
+    background: rgba(15, 23, 42, 0.76);
+    color: #f8fafc;
+}
+
+.project-content {
+    padding: 1.25rem 1.25rem 1.35rem;
+}
+
+.project-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+    color: var(--brand-dark);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.35px;
+    text-transform: uppercase;
+}
+
+body[data-theme="dark"] .project-meta {
+    color: #7dd3fc;
+}
+
+.project-content h3 {
+    margin: 0 0 0.65rem;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.project-card-featured .project-content h3 {
+    font-size: 1.45rem;
+}
+
+.project-content p {
+    margin: 0 0 1rem;
+    color: var(--page-muted);
+    line-height: 1.85;
+    min-height: 5.6em;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.project-tags li {
+    padding: 0.45rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(var(--project-accent-rgb), 0.12);
+    color: var(--brand-dark);
+    border: 1px solid rgba(var(--project-accent-rgb), 0.14);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+body[data-theme="dark"] .project-tags li {
+    background: rgba(var(--project-accent-rgb), 0.16);
+    color: #d9f3ff;
+    border-color: rgba(125, 211, 252, 0.12);
+}
+
+.project-card-featured {
+    min-height: 100%;
+}
+
+.site-footer {
+    padding: 2rem 0;
+    background: var(--brand-deep);
+    color: #e2e8f0;
+}
+
+.footer-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+}
+
+.footer-link {
+    color: #cbd5e1;
+    text-decoration: none;
+    margin-inline-start: 0.85rem;
+    font-weight: 600;
+}
+
+.footer-link:hover {
+    color: #ffffff;
+}
+
+body[data-theme="dark"] .section-soft {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+@media (max-width: 991.98px) {
+    .section-pad {
+        padding: 3.5rem 0;
+    }
+
+    .hero-title {
+        font-size: clamp(2.25rem, 5vw, 3.5rem);
+    }
+
+    .hero-text {
+        font-size: 1.02rem;
+    }
+
+    .hero-image {
+        min-height: 300px;
+    }
+
+    .info-card,
+    .feature-pill,
+    .stat-card {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .section-pad {
+        padding: 2.75rem 0;
+    }
+
+    .navbar-custom .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .navbar-custom .navbar-collapse {
+        margin-top: 0.75rem;
+        padding: 0.9rem;
+        border-radius: 1.2rem;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        width: 100%;
+    }
+
+    .navbar-custom .nav-link {
+        width: 100%;
+        margin: 0.15rem 0;
+    }
+
+    .btn-theme-toggle {
+        margin-top: 0.75rem;
+    }
+
+    .btn-lang-toggle {
+        margin-top: 0.75rem;
+    }
+
+    .hero-section .d-flex.flex-wrap {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem !important;
+    }
+
+    .hero-section .btn-primary-custom,
+    .hero-section .btn-outline-custom {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-image {
+        min-height: 220px;
+        border-radius: 1.15rem;
+    }
+
+    .section-heading {
+        margin-bottom: 1.5rem;
+    }
+
+    .info-card,
+    .feature-pill,
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .footer-link {
+        display: inline-block;
+        margin-inline-start: 0;
+        margin-bottom: 0.35rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .navbar-custom .navbar-brand {
+        font-size: 1.05rem;
+    }
+
+    .navbar-custom .nav-link {
+        font-size: 0.98rem;
+    }
+
+    .hero-title {
+        font-size: 2.1rem;
+    }
+
+    .hero-text,
+    .section-heading p,
+    .info-card p,
+    .feature-pill span,
+    .footer-text {
+        line-height: 1.75;
+    }
+
+    .hero-image {
+        min-height: 200px;
+    }
+
+    .info-card h3,
+    .section-heading h2 {
+        font-size: 1.35rem;
+    }
+
+    .site-footer .text-end {
+        text-align: start !important;
+    }
+}
+/* ==========================================================================
+   التصميم الأساسي لشريط التذييل (لشاشات الحاسوب الكبيرة بشكل افتراضي)
+   ========================================================================== */
+.custom-footer {
+    background-color: var(--page-surface-strong, #eef6ff);
+    border-top: 1px solid var(--page-border, rgba(15, 23, 42, 0.08));
+    color: var(--page-text, #0f172a);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* دعم كامل ومباشر للوضع الداكن بمشروعك */
+[data-theme="dark"] .custom-footer {
+    background-color: #1e293b;
+    border-top-color: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+}
+
+.footer-text {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.developer-name {
+    color: var(--brand-dark, #0ea5e9);
+    font-weight: 700;
+}
+
+/* تنسيق حاوية الروابط والأيقونات */
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px; /* حجم مريح للضغط بالإصبع على الموبايل */
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--page-surface, #ffffff);
+    color: var(--page-muted, #475569);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+}
+
+[data-theme="dark"] .social-icon {
+    background-color: #0f172a;
+    color: #94a3b8;
+}
+
+/* تأثيرات الـ Hover للمؤشر */
+.social-icon:hover {
+    transform: translateY(-5px);
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.social-icon.fb:hover { background-color: #1877f2; }
+.social-icon.li:hover { background-color: #0077b5; }
+.social-icon.insta:hover { background-color: #e1306c; }
+
+/* تنسيق التنبيه المنبثق (Toast) */
+.footer-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    z-index: 2000;
+    pointer-events: none;
+    width: max-content;
+    max-width: 90%;
+    text-align: center;
+}
+
+.footer-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* ==========================================================================
+   الـ Media Queries لضمان التجاوب والتناسق التام
+   ========================================================================== */
+
+/* 1. الشاشات المتوسطة والتابلت (أصغر من 992px) */
+@media (max-width: 991.98px) {
+    .footer-text {
+        font-size: 0.95rem;
+    }
+    .social-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* 2. شاشات الهواتف المحمولة الذكية (أصغر من 768px) */
+@media (max-width: 767.98px) {
+    .custom-footer {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+    
+    /* جعل العناصر تترتب عمودياً في المنتصف بشكل مريح للعين */
+    .custom-footer .row {    
+        flex-direction: column-reverse; /* يضع الأيقونات في الأعلى والنصوص في الأسفل */
+        gap: 1.25rem !important;
+    }
+    
+    .footer-text {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    .social-links {
+        justify-content: center !important;
+        gap: 1.2rem;
+    }
+}
+
+/* 3. شاشات الهواتف الصغيرة جداً (أصغر من 400px) */
+@media (max-width: 399.98px) {
+    .footer-text {
+        font-size: 0.82rem;
+    }
+    .social-icon {
+        width: 36px;
+        height: 36px;
+    }
+    .footer-toast {
+        font-size: 0.85rem;
+        padding: 10px 18px;
+    }
+}
+
+/* ==========================================================================
+   تنسيقات الهوية البصرية المخصصة لصفحة المدونة
+   ========================================================================== */
+.blog-hero {
+    background: radial-gradient(circle at center, rgba(56, 189, 248, 0.05), transparent 70%);
+}
+
+.blog-card {
+    background-color: var(--page-surface, #ffffff);
+    border: 1px solid var(--page-border, rgba(15, 23, 42, 0.08));
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-card, 0 16px 35px rgba(15, 23, 42, 0.08));
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 45px rgba(15, 23, 42, 0.12);
+}
+
+.blog-thumb {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.blog-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--brand-dark, #0ea5e9);
+    color: #ffffff;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* دعم الوضع الداكن لبطاقات المدونة */
+[data-theme="dark"] .blog-card {
+    background-color: #1e293b;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.read-more-btn {
+    color: var(--brand-dark, #0ea5e9);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.read-more-btn:hover {
+    color: var(--brand, #38bdf8);
+}
+
+/* ==========================================================================
+   استعلامات الميديا كويري لصفحة المدونة (Media Queries)
+   ========================================================================== */
+@media (max-width: 767.98px) {
+    .blog-hero h1 {
+        font-size: 2.2rem;
+    }
+    .blog-hero p {
+        font-size: 0.95rem;
+    }
+    .blog-thumb {
+        height: 180px;
+    }
+    .blog-body {
+        padding: 1.25rem !important;
+    }
+}
+
+/* مواءمة الخطوط تلقائياً مع الوضع المظلم للمدونة */
+[data-theme="dark"] body {
+    --page-text: #f8fafc; /* اللون الأبيض المريح للعين */
+}
+
+/* إجبار العناوين والفقرات داخل أقسام المدونة على التحول للأبيض تلقائياً */
+[data-theme="dark"] .header-blog-section h1,
+[data-theme="dark"] .header-blog-section p,
+[data-theme="dark"] .newsletter-blog-section h3,
+[data-theme="dark"] .newsletter-blog-section p,
+[data-theme="dark"] .blog-card .card-title,
+[data-theme="dark"] .blog-card .card-text,
+[data-theme="dark"] .blog-card .text-muted,
+[data-theme="dark"] .blog-card span {
+    color: var(--page-text) !important;
+}
+
+/* تحسين تباين حواف بطاقات المدونة في الوضع المظلم */
+[data-theme="dark"] .blog-card {
+    background-color: #1e293b !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/*  */
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   التنسيقات المخصصة لبطاقات المتجر والسلة التفاعلية لعمرو جنيات
+   ========================================================================== */
+.product-store-card {
+    background-color: var(--page-surface, #ffffff);
+    border: 1px solid var(--page-border, rgba(15, 23, 42, 0.08));
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-card, 0 16px 35px rgba(15, 23, 42, 0.08));
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.product-store-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 45px rgba(15, 23, 42, 0.12);
+}
+
+.store-thumb-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 180px;
+    background-color: var(--page-surface-strong, #eef6ff);
+}
+
+.store-thumb-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-store-card:hover .store-thumb-wrapper img {
+    transform: scale(1.05);
+}
+
+.product-cat-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background-color: var(--brand-dark, #0ea5e9);
+    color: #ffffff;
+    padding: 0.25rem 0.65rem;
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    z-index: 2;
+}
+
+.scale-effect {
+    animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes badgePop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* تهيئة السلة الجانبية المنبثقة Offcanvas لتتوافق مع سمات الألوان والوضع الداكن */
+.offcanvas {
+    background-color: var(--page-surface, #ffffff);
+    color: var(--page-text, #0f172a);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="dark"] .product-store-card {
+    background-color: #111827 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .product-store-card .card-title,
+[data-theme="dark"] .product-store-card .text-muted,
+[data-theme="dark"] .offcanvas-title,
+[data-theme="dark"] .offcanvas-body {
+    color: #f8fafc !important;
+}
+/* ==========================================================================
+   رسالة نجاح إضافة المنتج للسلة (Cart Success Toast)
+   ========================================================================== */
+.cart-success-toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 12px 36px rgba(14, 165, 233, 0.35);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    z-index: 9999;
+    pointer-events: none;
+    white-space: nowrap;
+    max-width: 90vw;
+    text-align: center;
+}
+
+.cart-success-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+body[data-theme="dark"] .cart-success-toast {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   نظام ظهور العناصر بحركة انسيابية عند التمرير (Scroll Reveal System)
+   يدعم: RTL/LTR، الوضع الداكن، وتقليل الحركة (prefers-reduced-motion)
+   ========================================================================== */
+
+/* --- الحالة الابتدائية: مخفية قبل الظهور --- */
+[data-reveal] {
+    opacity: 0;
+    will-change: opacity, transform;
+    transition:
+        opacity   0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* من الأسفل (افتراضي) */
+[data-reveal="up"] {
+    transform: translateY(40px);
+}
+
+/* من الأعلى */
+[data-reveal="down"] {
+    transform: translateY(-40px);
+}
+
+/* من اليسار — يُعكس تلقائياً في RTL */
+[data-reveal="left"] {
+    transform: translateX(-48px);
+}
+
+/* من اليمين */
+[data-reveal="right"] {
+    transform: translateX(48px);
+}
+
+/* تكبير من الداخل */
+[data-reveal="zoom"] {
+    transform: scale(0.88);
+}
+
+/* انزياح خفيف + fade للبطاقات */
+[data-reveal="card"] {
+    transform: translateY(28px) scale(0.97);
+}
+
+/* --- الحالة النهائية: ظاهرة --- */
+[data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+/* --- تأخير متتالي للعناصر الأبناء (stagger) --- */
+[data-reveal-delay="1"] { transition-delay: 0.08s; }
+[data-reveal-delay="2"] { transition-delay: 0.16s; }
+[data-reveal-delay="3"] { transition-delay: 0.24s; }
+[data-reveal-delay="4"] { transition-delay: 0.32s; }
+[data-reveal-delay="5"] { transition-delay: 0.40s; }
+[data-reveal-delay="6"] { transition-delay: 0.48s; }
+
+/* --- إلغاء التأثير للمستخدمين الذين يفضلون تقليل الحركة --- */
+@media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* ==========================================================================
+   ملف التنسيق الخاص بالحاسبة المتجاوبة والمتزامنة مع الهوية البصرية للمشروع
+   ========================================================================== */
+
+.calc-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+    padding: 2rem 1rem;
+}
+
+.calculator-card {
+    background-color: var(--page-surface);
+    border: 1px solid var(--page-border);
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-card);
+    width: 100%;
+    max-width: 360px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calc-display {
+    width: 100%;
+    height: 75px;
+    border: none;
+    background-color: var(--page-surface-strong);
+    color: var(--page-text);
+    font-size: 2.2rem;
+    text-align: left;
+    direction: ltr;
+    padding: 0 1.2rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    outline: none;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.calc-btn {
+    border: none;
+    background-color: var(--page-surface-strong);
+    color: var(--page-text);
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 1.1rem;
+    border-radius: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc-btn:hover {
+    background-color: var(--brand);
+    color: #ffffff;
+    transform: scale(1.04);
+}
+
+/* أزرار المسح والتراجع */
+.btn-danger-custom {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+.btn-danger-custom:hover {
+    background-color: #dc2626;
+    color: #ffffff;
+}
+
+/* أزرار العمليات الرياضية (تتوافق ألوانها تلقائياً مع السمة النشطة) */
+.btn-operator-custom {
+    background-color: rgba(56, 189, 248, 0.15);
+    color: var(--brand-dark);
+}
+
+/* التنسيق للوضع الداكن عند تنشيطه على الحاوية الأب */
+[data-theme="dark"] .btn-operator-custom {
+    background-color: rgba(56, 189, 248, 0.25);
+    color: #38bdf8;
+}
+
+/* الزر الرئيسي لليساوي الممتد على عمودين */
+.btn-equal-custom {
+    grid-column: span 2;
+    background-image: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    color: #ffffff;
+}
+.btn-equal-custom:hover {
+    background-image: linear-gradient(135deg, var(--brand-dark) 0%, #0284c7 100%);
+    color: #ffffff;
+}
+
+
+/* ==========================================================================
+   تحديثات مطورة لزيادة وضوح أزرار النافبار (القائمة والثيم) على الجوال
+   ========================================================================== */
+
+/* 1. إصلاح زر قائمة الموبايل (الثلاث نقاط) ليظهر بوضوح في كل الأوضاع */
+/* /* ==========================================================================
+   تحديثات مطورة لزيادة وضوح أزرار النافبار (القائمة والثيم) على الجوال
+   ========================================================================== */
+
+/* 1. إصلاح زر قائمة الموبايل (الثلاث نقاط) ليظهر بوضوح في كل الأوضاع */
+.navbar-custom .navbar-toggler {
+    background-color: rgba(56, 189, 248, 0.12) !important; /* خلفية زرقاء خفيفة تبرز موقعه */
+    border: 1.5px solid rgba(56, 189, 248, 0.45) !important; /* إطار أزرق سماوي واضح جداً */
+    border-radius: 0.6rem;
+    padding: 0.45rem 0.65rem;
+    transition: all 0.3s ease;
+}
+
+/* رفع سطوع وتباين الخطوط الثلاثة داخل الزر */
+.navbar-custom .navbar-toggler-icon {
+    filter: invert(1) brightness(1.7) contrast(1.2) !important; 
+}
+
+/* هالة إضاءة تفاعلية ناعمة عند النقر على زر القائمة */
+.navbar-custom .navbar-toggler:focus,
+.navbar-custom .navbar-toggler:active {
+    box-shadow: 0 0 0 0.25rem rgba(56, 189, 248, 0.35) !important;
+    outline: none;
+}
+
+
+/* 2. إصلاح زر تبديل الوضع (الليلي / النهاري) ومنحه حوافاً وألواناً واضحة */
+.btn-theme-toggle {
+    background-color: rgba(255, 255, 255, 0.05) !important; /* خلفية ناعمة لمنع الاندماج */
+    border: 1.5px solid rgba(56, 189, 248, 0.35) !important; /* إطار أزرق سماوي زاهي */
+    color: #38bdf8 !important; /* لون الأيقونة في الوضع العادي */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* تحول لوني مميز لزر الثيم عند تفعيل الوضع الليلي (يتحول لأيقونة شمس ذهبية) */
+body[data-theme="dark"] .btn-theme-toggle {
+    background-color: rgba(234, 179, 8, 0.1) !important; /* خلفية ذهبية خفيفة جداً */
+    border-color: rgba(234, 179, 8, 0.45) !important; /* إطار ذهبي واضح */
+    color: #eab308 !important; /* لون الأيقونة أصفر دافئ ناصع */
+    box-shadow: 0 2px 10px rgba(234, 179, 8, 0.25);
+}
+
+/* تأثير حركة تفاعلية رشيقة عند تمرير الماوس أو اللمس على الجوال */
+.btn-theme-toggle:hover {
+    transform: scale(1.08) rotate(15deg) !important;
+}
+
+/* ==========================================================================
+   إعدادات العرض المثالي للجوال وحل مشكلة اهتزاز وتحرك الشاشة أفقياً
+   ========================================================================== */
+
+/* 1. قفل التحرك الأفقي قطعياً مع الحفاظ على فاعلية القوائم المثبتة (Sticky Navbar) */
+html, body {
+    max-width: 100%;
+    overflow-x: clip; /* تمنع الاهتزاز الجانبي بشكل ذكي دون كسر خاصية sticky-top */
+    position: relative;
+}
+
+/* 2. حماية عامة لضمان عدم خروج أي وسائط أو أيقونات عن حدود الشاشة */
+img, video, canvas, svg {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* 3. ميديا كويري مخصصة لضبط وضمان مثالية العرض على الهواتف المحمولة */
+@media (max-width: 767.98px) {
+    
+    /* منع الهوامش السالبة الافتراضية لـ Bootstrap من التسبب في خروج المحتوى */
+    .row {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+    
+    /* تقليل الحشو الرأسي للأقسام ليناسب ارتفاع شاشات الجوال ويسهل التصفح */
+    .section-pad {
+        padding: 2.5rem 0 !important;
+    }
+    
+    /* حماية النصوص والعناوين الضخمة من كسر حواف الشاشة أفقياً */
+    h1, .hero-title, h2, h3 {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+    }
+    
+    /* تحسين انسيابية التمرير الرأسي وإلغاء أي تأثيرات ارتدادية جانبية */
+    body {
+        overscroll-behavior-x: none;
+    }
+}
+
+
+/* ==========================================================================
+   قسم التجاوب الموحد (Responsive Media Queries) - متوافق مع Bootstrap 5
+   ========================================================================== */
+
+/* 1. الشاشات الكبيرة جداً والأفقية (شاشات التلفاز أو شاشات الألعاب الضخمة) */
+@media (min-width: 1400px) {
+    /* هنا توضع التعديلات الدقيقة الخاصة بشاشات XXL فقط إن وجدت */
+}
+
+/* 2. شاشات الحواسيب المحمولة والمكتبية العادية (أقل من شاشات 1200px) */
+@media (max-width: 1199.98px) {
+    /* تصفح مريح على الشاشات المتوسطة */
+}
+
+/* 3. شاشات الآيباد والتابلت الكبيرة في الوضع الأفقي (أقل من شاشات 992px) */
+@media (max-width: 991.98px) {
+    /* مفيد جداً للتحكم بظهور واختفاء عناصر القائمة عند تحولها لـ Toggler */
+    .navbar-custom .nav-link {
+        margin: 4px 0; /* تحسين المسافات الرأسية للقائمة المنسدلة في التابلت والجوال */
+        border-radius: 8px;
+    }
+}
+
+/* 4. شاشات التابلت العادية والآيباد في الوضع الرأسي (أقل من شاشات 768px) */
+@media (max-width: 767.98px) {
+    /* حماية عامة لتقليص الحشوات الضخمة للمقاطع على التابلت والجوال */
+    .section-pad {
+        padding: 2.8rem 0 !important;
+    }
+}
+
+/* 5. شاشات الجوالات الذكية الصغيرة جداً (أقل من شاشات 576px) */
+@media (max-width: 575.98px) {
+    /* معالجة عناصر معرض المنتجات أو مقالات المدونة لتظهر بشكل مريح للعين */
+    .hero-title {
+        /* دعم إضافي للهواتف القديمة التي لا تدعم توازن clamp بشكل كامل */
+        font-size: 2.3rem; 
+    }
+}

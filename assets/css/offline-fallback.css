@@ -1,0 +1,46 @@
+/* Offline Fallback Styles - تحميل الموقع بدون إنترنت */
+
+/* وقتما لا تتوفر Google Fonts، استخدم خطوط النظام */
+html[lang="en"] body,
+html[lang="en"] .navbar-custom .navbar-brand {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+html[lang="ar"] body,
+html[lang="ar"] .navbar-custom .navbar-brand {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* Fallback لصور Unsplash - استخدم ألوان placeholder بدلاً من الصور */
+img[src*="unsplash.com"],
+img[src*="images.unsplash.com"] {
+    display: none;
+}
+
+/* إذا كانت الصورة غير محملة، أظهر خلفية بلون ثابت */
+img[src*="unsplash.com"]::after,
+img[src*="images.unsplash.com"]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+}
+
+/* خيار آخر: استخدم background placeholder للصور */
+.blog-card img[src*="unsplash.com"],
+.blog-card img[src*="images.unsplash.com"],
+.info-card img[src*="unsplash.com"],
+.info-card img[src*="images.unsplash.com"],
+img[src*="product"][src*="unsplash.com"],
+img[src*="product"][src*="images.unsplash.com"] {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(14, 165, 233, 0.2) 100%);
+    min-height: 200px;
+    display: block;
+}
+
+/* محاولة حل مشكلة التخزين المؤقت */
+@media (prefers-reduced-data: no-preference) {
+    img {
+        content-visibility: auto;
+    }
+}

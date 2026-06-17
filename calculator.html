@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta id="metaDescription" name="description" content="AmrDigitalSpace - حاسبة متطورة ومتجاوبة بالكامل تدعم العمليات الحسابية الأساسية.">
+    <title data-i18n="navCalc">الحاسبة | AmrDigitalSpace</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <link id="bootstrapCss" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/offline-fallback.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/calculator.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-custom navbar-dark sticky-top" role="navigation" aria-label="التنقل الرئيسي" data-i18n-aria-label="mainNavAria">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <span class="brand-code">&lt;/&gt;</span> AmrDigitalSpace
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarMenu" data-i18n-aria-label="toggleNavAria">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="mainNavbarMenu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">
+                    <li class="nav-item"><a class="nav-link" href="index.html" data-i18n="navHome">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html" data-i18n="navBlog">المدونة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html" data-i18n="navProducts">معرض المنتجات</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="calculator.html" data-i18n="navCalc">الحاسبة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="consultation.html" data-i18n="navConsult">الاستشارة</a></li>
+                </ul>
+                
+                <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+                    <button class="btn btn-lang-toggle" id="langToggle" type="button" aria-label="تبديل اللغة" data-i18n-aria-label="toggleLangAria">EN</button>
+                    <button class="btn btn-theme-toggle" id="darkModeToggle" type="button" aria-label="تبديل الوضع الداكن" data-i18n-aria-label="toggleThemeAria">
+                        <span class="theme-icon" aria-hidden="true">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container flex-grow-1">
+        <div class="calc-wrapper">
+            <div class="calculator-card" data-reveal="zoom">
+                <input type="text" class="calc-display" id="calcScreen" readonly placeholder="0">
+                
+                <div class="calc-grid">
+                    <button class="calc-btn btn-danger-custom" id="btnAC">AC</button>
+                    <button class="calc-btn btn-operator-custom" data-val="/">/</button>
+                    <button class="calc-btn btn-operator-custom" data-val="*">×</button>
+                    <button class="calc-btn btn-operator-custom" data-val="-">-</button>
+
+                    <button class="calc-btn btn-num" data-val="7">7</button>
+                    <button class="calc-btn btn-num" data-val="8">8</button>
+                    <button class="calc-btn btn-num" data-val="9">9</button>
+                    <button class="calc-btn btn-operator-custom" data-val="+">+</button>
+
+                    <button class="calc-btn btn-num" data-val="4">4</button>
+                    <button class="calc-btn btn-num" data-val="5">5</button>
+                    <button class="calc-btn btn-num" data-val="6">6</button>
+                    <button class="calc-btn btn-danger-custom" id="btnDelete">⌫</button>
+
+                    <button class="calc-btn btn-num" data-val="1">1</button>
+                    <button class="calc-btn btn-num" data-val="2">2</button>
+                    <button class="calc-btn btn-num" data-val="3">3</button>
+                    
+                    <button class="calc-btn btn-equal-custom" id="btnEqual">=</button>
+
+                    <button class="calc-btn btn-num" data-val="0">0</button>
+                    <button class="calc-btn btn-num" data-val=".">.</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="custom-footer py-4 mt-auto">
+        <div class="container text-center">
+            <p class="mb-0 small footer-text">&copy; 2026 AmrDigitalSpace. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <!-- <script src="assets/js/calculator.js"></script> -->
+</body>
+</html>
