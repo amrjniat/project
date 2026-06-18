@@ -9,39 +9,65 @@ function generateLocalPlaceholder(productId) {
         canvas.height = height;
         const ctx = canvas.getContext('2d');
 
-        const colors = [
-            ['#0ea5e9','#0284c7'], ['#6366f1','#4f46e5'],
-            ['#10b981','#059669'], ['#f59e0b','#d97706'],
-            ['#ec4899','#db2777'], ['#8b5cf6','#7c3aed'],
+        // 6 ألوان متناوبة حسب رقم المنتج
+        const palettes = [
+            ['#0ea5e9','#0369a1'],
+            ['#6366f1','#4338ca'],
+            ['#10b981','#047857'],
+            ['#f59e0b','#b45309'],
+            ['#ec4899','#be185d'],
+            ['#8b5cf6','#6d28d9'],
         ];
-        const [c1, c2] = colors[productId % colors.length];
+        const [c1, c2] = palettes[productId % palettes.length];
+
+        // خلفية متدرجة قطرية
         const grad = ctx.createLinearGradient(0, 0, width, height);
         grad.addColorStop(0, c1);
         grad.addColorStop(1, c2);
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, width, height);
 
-        // دائرة شفافة خلف الرقم
+        // شكل هندسي زخرفي خلفي
+        ctx.fillStyle = 'rgba(255,255,255,0.07)';
+        ctx.beginPath();
+        ctx.arc(width - 80, 80, 120, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(60, height - 60, 90, 0, Math.PI * 2);
+        ctx.fill();
+
+        // بطاقة بيضاء شفافة في المنتصف
+        const bx = width / 2 - 70, by = height / 2 - 60, bw = 140, bh = 120, br = 18;
         ctx.fillStyle = 'rgba(255,255,255,0.18)';
         ctx.beginPath();
-        ctx.arc(width / 2, height / 2 - 10, 60, 0, Math.PI * 2);
+        ctx.moveTo(bx + br, by);
+        ctx.lineTo(bx + bw - br, by);
+        ctx.quadraticCurveTo(bx + bw, by, bx + bw, by + br);
+        ctx.lineTo(bx + bw, by + bh - br);
+        ctx.quadraticCurveTo(bx + bw, by + bh, bx + bw - br, by + bh);
+        ctx.lineTo(bx + br, by + bh);
+        ctx.quadraticCurveTo(bx, by + bh, bx, by + bh - br);
+        ctx.lineTo(bx, by + br);
+        ctx.quadraticCurveTo(bx, by, bx + br, by);
+        ctx.closePath();
         ctx.fill();
+
+        // أيقونة نصية (إيموجي بسيط حسب الفئة)
+        const icons = ['💻','🎒','🐍','⌨️'];
+        ctx.font = '38px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(icons[(productId - 1) % icons.length], width / 2, height / 2 - 12);
 
         // رقم المنتج
         ctx.fillStyle = 'rgba(255,255,255,0.95)';
-        ctx.font = 'bold 28px Arial, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('#' + productId, width / 2, height / 2 - 10);
-
-        // كلمة Product
-        ctx.font = '16px Arial, sans-serif';
-        ctx.fillStyle = 'rgba(255,255,255,0.75)';
-        ctx.fillText('Product', width / 2, height / 2 + 30);
+        ctx.font = 'bold 18px Arial, sans-serif';
+        ctx.fillText('Product #' + productId, width / 2, height / 2 + 38);
 
         return canvas.toDataURL('image/png');
     } catch (e) {
-        return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="600" height="400" fill="%230ea5e9"/><text x="300" y="210" font-size="24" fill="white" text-anchor="middle">%23' + productId + '</text></svg>';
+        // SVG fallback لأقدم البيئات
+        return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%230ea5e9"/><stop offset="1" stop-color="%230369a1"/></linearGradient></defs><rect width="600" height="400" fill="url(%23g)"/><text x="300" y="210" font-size="22" fill="white" text-anchor="middle" font-family="Arial">Product %23${productId}</text></svg>`;
     }
 }
 
@@ -604,14 +630,11 @@ formAlertSuccess: '✅ Request received successfully! We will contact you soon.'
         
         for (let i = 1; i <= 102; i++) {
             const base = storeBaseItems[(i - 1) % storeBaseItems.length];
-            const keywordIndex = (i - 1) % base.imageKeywords.length;
-            const keyword = base.imageKeywords[keywordIndex];
-            const seed = `amr-${keyword}-${i}`;
             
             fullList.push({
                 id: i,
                 cat: base.cat,
-                img: `https://picsum.photos/seed/${seed}/600/400?random=${i}`,
+                img: generateLocalPlaceholder(i),   // ← Canvas محلي 100%، لا شبكة
                 price: parseFloat((base.price + (i * 0.35) % 50).toFixed(2)),
                 ar: { title: `${base.ar.title} #${i}`, desc: base.ar.desc },
                 en: { title: `${base.en.title} #${i}`, desc: base.en.desc }
